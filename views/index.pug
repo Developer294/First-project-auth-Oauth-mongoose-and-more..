@@ -1,0 +1,38 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet", href="../styles/index.css")
+    title Welcome Page
+  body
+    h1 Welcome User
+    form#login-form(action="/login", method="post")
+      label(for="username") Username:
+      input(type="text", id="username", name="username", required)
+
+      label(for="password") Password:
+      input(type="password", id="password", name="password", required)
+
+      input(type="submit", value="Login")
+
+    form#signup-form(action="/signup", method="post", style="display:none;")
+      label(for="newUsername") New Username:
+      input(type="text", id="newUsername", name="username", required)
+
+      label(for="newPassword") New Password:
+      input(type="password", id="newPassword", name="password", required)
+
+      input(type="submit", value="Sign Up")
+
+    br
+    br
+    br
+    a(href='#', id='signup-link') Don't have an account? Create one!
+
+    br
+    a(href='/auth/github') Login with GitHub
+    button#back-button(style='display:none') Back
+    script(src='./client/client.js')
+
+     

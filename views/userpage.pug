@@ -1,0 +1,17 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Documento
+  body
+    h1 Welcome Username
+    a(href='/userpage/logout') Cerrar Sesion
+    a#delete-account(href='#') Cerrar Cuenta
+    form(id="form-delete")
+      label(for='usernameToDelete') Username: 
+      input(type="text", name="username", id="usernameToDelete" required)
+      label(for='passwordToDelete') Password:
+      input(type='password', name='password', id='passwordToDelete' required)
+      input(type="submit", value="Eliminar Usuario")
+      script(src='./client/userpage.js')
