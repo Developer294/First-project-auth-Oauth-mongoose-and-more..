@@ -1,14 +1,25 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config()
 
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    type: 'OAuth2',
-    user: process.env.MAIL_USERNAME,
-    pass: process.env.MAIL_PASSWORD,
-    clientId: process.env.OAUTH_CLIENTID,
-    clientSecret: process.env.OAUTH_CLIENT_SECRET,
-    refreshToken: process.env.OAUTH_REFRESH_TOKEN
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_APP_PASSWORD
+  },
+});
+
+const mailOptions = {
+  from: process.env.GMAIL_USER,
+  to: 'destinatario@otradireccion.com',
+  subject: 'Retrieve your password',
+  text: 'To retrieve your password follow the instructions below',
+};
+
+transporter.sendMail(mailOptions, (error, info) => {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('Correo enviado: ' + info.response);
   }
 });

@@ -41,30 +41,33 @@ require('dotenv').config();
     }
   });
 
-    passport.use('local', new LocalStrategy((username, password, done) => {
-      console.log('Attempting local authentication for username:', username);
-      
-      User.findOne({ username: username })
-        .then(user => {
-          if (!user) {
-            debug('User not found:', username);
-            return done(null, false, { message: 'Invalid user or password' });
-          }
-          let passwordMatch = bcrypt.compare(password, user.password);
-          if (!passwordMatch) {
-            debug('Incorrect password for user:', username);
-            return done(null, false, { message: 'Contraseña incorrecta' });
-          }
-
-          debug('User authenticated successfully:', username);
-          return done(null, user);
-        })
-        .catch(err => {
-          console.error('Error user authentication local strategy', err);
-          return done(err,null);
-        });
+  passport.use('local', new LocalStrategy({ passReqToCallback: true }, async (req, username, password, done) => {
+    console.log('Attempting local authentication for username:', username);
+    try {
+      const user = await User.findOne({ username: username }).exec();
+      if (!user) {
+        debug('User not found:', username);
+        req.flash('error', 'Invalid user or password');
+        return done(null, false);
+      }
+  
+      const passwordMatch = await bcrypt.compare(password, user.password);
+  
+      if (!passwordMatch) {
+        debug('Incorrect password for user:', username);
+        req.flash('error', 'Invalid user or password');
+        return done(null, false);
+      }
+  
+      debug('User authenticated successfully:', username);
+      return done(null, user);
+    } catch (err) {
+      console.error('Error user authentication local strategy', err);
+      req.flash('error', 'An error occurred during authentication');
+      return done(err, null);
     }
-  ));
+  }));
+  
  
   passport.use(new GitHubStrategy({
     clientID: process.env.CLIENT_ID_GITHUB,

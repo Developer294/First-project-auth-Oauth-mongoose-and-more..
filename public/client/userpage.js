@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
+  const changePassword = document.getElementById('change-password')
+  changePassword.addEventListener('click', function(event){
+    event.preventDefault()
+    const changeFormPassword = document.getElementById('change-password-form')
+    changeFormPassword.style.display = 'block'
+
+  })
+  
   const deleteForm = document.getElementById('form-delete');
   deleteForm.addEventListener('submit', function(event) {
     event.preventDefault();
