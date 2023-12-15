@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Alternar la visibilidad de los formularios
     loginForm.style.display = 'none';
     signupForm.style.display = 'block';
-    backButton.style.display = 'block'
+    backButton.style.display = 'block';
   });
 
   // Agregar un evento de clic al botón "Back"

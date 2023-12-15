@@ -6,8 +6,8 @@ const session = require('express-session');
 const dbConnect = require('./dbconnect.js');
 const {User,GithubUser} = require('./schema.js');
 const auth = require('./auth.js');
+const flash = require('connect-flash');
 const passport = require('passport');
-//const helmet = require('helmet')
 const bodyParser = require('body-parser');
 const {router} = require('./routes.js');
 const debug = require('debug')('debug:server');
@@ -21,7 +21,7 @@ app.use(session({
   cookie: { secure: false } // "true" is used for Https protocol
 }))
 
-//app.use(helmet())
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -53,3 +53,4 @@ app.use((req, res, next) => {
 app.listen(port ,(req,res)=> {
   debug(`El servidor está escuchando en el puerto ${port}...`)
 });
+

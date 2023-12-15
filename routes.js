@@ -4,10 +4,10 @@ const bcrypt = require('bcrypt');
 const router = require('express').Router();
 
 router.post('/login', passport.authenticate('local', {
-  failureRedirect: '/welcome',
+  failureRedirect: '/',
   failureFlash: true
 }), (req, res) => {
-  res.status(200).redirect('/userpage');
+  res.redirect('/userpage');
 });
 
 router.get('/userpage', (req, res) => {
@@ -31,7 +31,7 @@ router.delete('/login/userpage/delete', async(req, res) => {
     const user = await User.findOne({ username: req.body.username }).exec();
     if (!user) return res.status(404).json({ message: 'Invalid username or password' });
     // Check hashed password
-    const hashPassword = bcrypt.compare(req.body.password, user.password);
+    const hashPassword = bcrypt.compare(req.body.passwordToDelete, user.password);
     if (!hashPassword) return res.status(404).json({ message: 'Invalid password' });
     // Delete document
     await User.findOneAndDelete({ username: req.body.username }).exec();
@@ -46,15 +46,20 @@ router.delete('/login/userpage/delete', async(req, res) => {
 router.post('/signup', async(req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username }).exec();
-    console.log(user);
     if (user) {
       res.status(409).json({ error: 'The username already exists' });
+      return;
+    }
+    const email = await User.findOne({email: req.body.email}).exec()
+    if (email){
+      res.status(409).json({error:'The email already exists in our database'})
       return;
     }
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const newUser = new User({
       username: req.body.username,
-      password: hashedPassword
+      password: hashedPassword,
+      email: req.body.email
     });
     await newUser.save();
     res.status(200).json({ message: 'Usuario registrado exitosamente, inicia sesion para continuar' });

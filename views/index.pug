@@ -10,7 +10,7 @@ html(lang="en")
     form#login-form(action="/login", method="post")
       label(for="username") Username:
       input(type="text", id="username", name="username", required)
-
+      
       label(for="password") Password:
       input(type="password", id="password", name="password", required)
 
@@ -20,9 +20,12 @@ html(lang="en")
       label(for="newUsername") New Username:
       input(type="text", id="newUsername", name="username", required)
 
-      label(for="newPassword") New Password:
-      input(type="password", id="newPassword", name="password", required)
+      label(for='email') Email
+      input(type='email', id='email', name='email',required)
 
+      label(for="newPassword") New Password:
+      input(type="password", id="newPassword", name="password", pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])([A-Za-z\\d$@$!%*?&]|[^ ]){8,20}$", required)
+      
       input(type="submit", value="Sign Up")
 
     br
