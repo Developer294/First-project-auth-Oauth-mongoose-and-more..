@@ -51,7 +51,7 @@ require('dotenv').config();
         return done(null, false);
       }
   
-      const passwordMatch = await bcrypt.compare(password, user.password);
+      const passwordMatch = bcrypt.compare(password, user.password);
   
       if (!passwordMatch) {
         debug('Incorrect password for user:', username);

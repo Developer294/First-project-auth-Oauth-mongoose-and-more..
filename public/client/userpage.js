@@ -1,16 +1,14 @@
 document.addEventListener('DOMContentLoaded', function() {
-  const changePassword = document.getElementById('change-password')
+  const changePassword = document.getElementById('change-password');
+  const changePasswordForm = document.getElementById('change-password-form');
+  const deleteFormAccount = document.getElementById('form-delete-account');
   changePassword.addEventListener('click', function(event){
     event.preventDefault()
-    const changeFormPassword = document.getElementById('change-password-form')
-    changeFormPassword.style.display = 'block'
-
-  })
+    changePasswordForm.style.display = 'block';
+  });
   
-  const deleteForm = document.getElementById('form-delete');
-  deleteForm.addEventListener('submit', function(event) {
+  deleteFormAccount.addEventListener('submit', function(event) {
     event.preventDefault();
-
     const usernameToDelete = document.getElementById('usernameToDelete').value;
     const passwordToDelete = document.getElementById('passwordToDelete').value;
 

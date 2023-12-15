@@ -2,13 +2,12 @@ const passport = require('passport');
 const { User } = require('./schema');
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
-const flash = require('express-flash')
 
 router.post('/login', passport.authenticate('local', {
   failureRedirect: '/',
   failureFlash: true
 }), (req, res) => {
-  res.status(200).redirect('/userpage');
+  res.redirect('/userpage');
 });
 
 router.get('/userpage', (req, res) => {

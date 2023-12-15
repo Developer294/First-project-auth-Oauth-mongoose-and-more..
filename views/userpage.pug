@@ -6,7 +6,7 @@ html(lang="en")
     title Documento
   body
     h1 Welcome Username
-    form(id="form-delete")
+    form(id="form-delete-account")
       label(for='usernameToDelete') Username: 
       input(type="text", name="username", id="usernameToDelete" required)
       label(for='passwordToDelete') Password:
@@ -17,13 +17,12 @@ html(lang="en")
       br
       br
       a(href='#', id='change-password') Cambiar contraseña
-      form(id='change-password-form', style="display:none;") 
-        label(for="passwordToChange") 
-        input(type='password', name='passwordToChange', id='passwordToChange')
-        label(for='newPassword')
-        input(type='password', name='newPassword', id='newPassword')
+    form(id='change-password-form', style="display:none;") 
+      label(for="passwordToChange") Old password
+      input(type='password', name='passwordToChange', id='passwordToChange')
+      label(for='newPassword') New password
+      input(type='password', name='newPassword', id='newPassword')
 
-        input(type='submit' value='Confirm')
-      br
+      input(type='submit' value='Confirm')
       script(src='./client/userpage.js')
       
