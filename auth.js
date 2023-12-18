@@ -7,7 +7,7 @@ require('dotenv').config();
   function auth(User,GithubUser) {
   passport.serializeUser((user, done) => {
     console.log('Serialize User:', user._id);
-    done(null, user._id);
+    return done(null, user._id);
   });
 // Deserialización del usuario
   passport.deserializeUser(async(id, done) => {
@@ -66,22 +66,19 @@ require('dotenv').config();
    try{
    const user = await GithubUser.findOne({ githubId: profile.id })
    if (user){
-    cb(null,user);
-    return;
+    return cb(null,user);
    }
    else{
    const newUser = new GithubUser({
     githubId : profile.id
    })
    await newUser.save()
-   cb(null,newUser)
-   return;
+   return cb(null,newUser)
   }
 }
   catch(err){
-    debug('Hubo un error al autenticar con gitHub', err)
-    cb(err,null)
-    return;
+    console.log('Hubo un error al autenticar con gitHub', err)
+    return cb(err,null)
   }
   }
 ));

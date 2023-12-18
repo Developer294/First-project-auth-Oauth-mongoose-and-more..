@@ -23,4 +23,4 @@ document.addEventListener('DOMContentLoaded', function() {
     signupForm.style.display = 'none';
     backButton.style.display = 'none'
   })
-})
+});

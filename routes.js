@@ -38,7 +38,7 @@ router.put('/login/userpage/updatepw',async(req,res) =>{
     return res.status(409).json({error: 'Passwords are equal'})
   }
   
-  const newPassword = await bcrypt.hash(req.body.newPassword,10)
+  const newPassword = await bcrypt.hash(req.body.newPassword,10);
   // Update password
   await User.findOneAndUpdate({email:req.body.email},{set$:{password:newPassword}},
   {new : true}).exec();
