@@ -5,7 +5,6 @@ const router = require('express').Router();
 
 router.post('/login', passport.authenticate('local', {
   failureRedirect: '/',
-  failureFlash: true
 }), (req, res) => {
   res.status(200).redirect('/login/userpage');
 });
