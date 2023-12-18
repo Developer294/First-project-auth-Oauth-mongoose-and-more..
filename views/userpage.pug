@@ -8,21 +8,26 @@ html(lang="en")
     h1 Welcome Username
     form(id="form-delete-account")
       label(for='usernameToDelete') Username: 
-      input(type="text", name="username", id="usernameToDelete" required)
-      label(for='passwordToDelete') Password:
-      input(type='password', name='passwordToDelete', id='passwordToDelete' required)
-      input(type="submit", value="Eliminar Usuario")
-      br
-      a(href='/userpage/logout') Cerrar Sesion
-      br
-      br
-      a(href='#', id='change-password') Cambiar contraseña
-    form(id='change-password-form', style="display:none;") 
-      label(for="passwordToChange") Old password
-      input(type='password', name='passwordToChange', id='passwordToChange')
-      label(for='newPassword') New password
-      input(type='password', name='newPassword', id='newPassword')
-
-      input(type='submit' value='Confirm')
-      script(src='./client/userpage.js')
+      input(type="text",id="usernameToDelete",required)
       
+      label(for='passwordToDelete') Password:
+      input(type='password',id='passwordToDelete',required)
+      
+      input(type="submit", value="Eliminar Usuario")
+   
+    a(href='/login/userpage/logout') Cerrar Sesion  
+    a(href='#', id='change-password') Cambiar contraseña
+    
+    form(id='change-password-form', style="display:none;")
+      label(for='emailToChangePw') 
+      input(type='email', id="emailToChangePw")
+      
+      label(for="passwordToChange") Old password
+      input(type='password',id='passwordToChange')
+      
+      label(for='newPasswordChanged') New password
+      input(type='password',id='newPasswordChanged')
+
+      input(type='submit',value='Confirm')
+    script(src='./client/userclient.js')
+    

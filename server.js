@@ -6,7 +6,6 @@ const session = require('express-session');
 const dbConnect = require('./dbconnect.js');
 const {User,GithubUser} = require('./schema.js');
 const auth = require('./auth.js');
-const flash = require('connect-flash');
 const passport = require('passport');
 const bodyParser = require('body-parser');
 const {router} = require('./routes.js');
@@ -21,16 +20,15 @@ app.use(session({
   cookie: { secure: false } // "true" is used for Https protocol
 }))
 
-app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-app.use(express.static(path.join(__dirname, 'public')));
 
 dbConnect();
 app.use('/',router)
