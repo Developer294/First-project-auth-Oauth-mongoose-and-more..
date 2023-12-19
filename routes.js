@@ -26,33 +26,42 @@ router.get('/auth/github/callback',
   });
 
 //Update password
-router.put('/login/userpage/updatepw',async(req,res) =>{
-  const user = await User.findOne({email: req.body.email}).exec()
-  if(!user) return res.status(404).json({error:'Username not found'})
+router.put('/login/userpage/updatepw', async (req, res) => {
+  try {
+    const user = await User.findOne({ email: req.body.email }).exec();
+    if (!user) return res.status(404).json({ error: 'Profile not found' });
 
-  const oldPassword = await bcrypt.compare(req.body.oldPassword, user.password)
-  if(!oldPassword) return res.status(404).json({error:'Username or password incorrect'})
-  
-  if(req.body.oldPassword === req.body.newPassword){
-    return res.status(409).json({error: 'Passwords are equal'})
+    const oldPasswordMatch = await bcrypt.compare(req.body.oldPassword, user.password);
+    if (!oldPasswordMatch) return res.status(401).json({ error: 'Invalid credentials' });
+
+    if (req.body.oldPassword === req.body.newPassword) {
+      return res.status(409).json({ error: 'Passwords are equal' });
+    }
+   // Validar la longitud de la nueva contraseña aquí si es necesario
+    const newPassword = await bcrypt.hash(req.body.newPassword, 10);
+    await User.findOneAndUpdate(
+      { email: req.body.email },
+      { $set: { password: newPassword } },
+      { new: true }
+    ).exec();
+
+    return res.status(200).json({ message: 'Password updated successfully' });
+  } catch (error) {
+    console.error('Error during password update:', error);
+    res.status(500).json({ error: 'Internal server error' });
   }
-  
-  const newPassword = await bcrypt.hash(req.body.newPassword,10);
-  // Update password
-  await User.findOneAndUpdate({email:req.body.email},{set$:{password:newPassword}},
-  {new : true}).exec();
-  res.status(200).json({message:'User updated succesfully'})
 });
+
 // Delete Users
 router.delete('/login/userpage/delete', async(req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username }).exec();
     if (!user) return res.status(404).json({ message: 'Invalid username or password' });
     // Check hashed password
-    const hashPassword = await bcrypt.compare(req.body.passwordToDelete, user.password);
+    const hashPassword = await bcrypt.compare(req.body.password, user.password);
     if (!hashPassword) return res.status(404).json({ message: 'Invalid password' });
     // Delete document
-    await User.findOneAndDelete({ username: req.body.username }).exec();
+    await User.findByIdAndDelete({ _id: user._id }).exec();
     res.status(200).json({ message: 'User deleted successfully' });
   }
   catch(err) {
