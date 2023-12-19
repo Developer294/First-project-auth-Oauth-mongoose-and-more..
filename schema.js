@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     minlength:8,
-    maxlength:200,
+    maxlength:300,
     required: true,
   },
   date :{type: Date, default: new Date()}
@@ -30,6 +30,7 @@ const githubUserSchema = new mongoose.Schema({
 const GithubUser = mongoose.model('GithubUser', githubUserSchema);
 
 // Use a regular function, not an arrow function, for avoid the "this" bug.
+/*
 userSchema.pre('save', function(next) {
   console.log('Middleware pre-save triggered');
   console.log('Original password:', this.password);
@@ -42,7 +43,7 @@ userSchema.pre('save', function(next) {
   console.log('Hashed password:', this.password);
   next();
 });
-
+*/
 const User = mongoose.model('User', userSchema);
 
 module.exports ={

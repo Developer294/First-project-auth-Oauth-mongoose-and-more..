@@ -2,73 +2,61 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const GitHubStrategy = require('passport-github').Strategy;
 const bcrypt = require('bcrypt');
-const debug = require('debug')('debug:auth');
 require('dotenv').config();
 
   function auth(User,GithubUser) {
   passport.serializeUser((user, done) => {
-    debug('Serialize User:', user._id);
-    done(null, user._id);
-    return;
+    console.log('Serialize User:', user._id);
+    return done(null, user._id);
   });
 // Deserialización del usuario
   passport.deserializeUser(async(id, done) => {
-    debug('Deserialize User ID:', id);
+    console.log('Deserialize User ID:', id);
     try {
-      // Use await to wait for the query to execute and get the user object
       const user = await User.findById(id).exec();
       if (user) {
-        debug('Deserializacion exitosa');
-        done(null, user);
-        return;
+        console.log('Deserializacion exitosa');
+        return done(null, user);
       } else {
         const Github = await GithubUser.findById(id).exec()
         if(Github){
-          debug('Deserializacion usuario github exitosa');
-          done(null,Github)
-          return;
+         console.log('Deserializacion usuario github exitosa');
+         return done(null,Github)
         }
         else{
-        debug('Usuario no encontrado en la deserialización');
-        done(new Error('Usuario no encontrado'));
-        return;
+        console.log('Usuario no encontrado en la deserialización');
+        return done(new Error('Usuario no encontrado'),null);
         }
       }
     } catch(err) {
       console.error('Error durante la deserialización:', err);
-      done(err);
-      return;
+      return done(err);
     }
   });
 
-  passport.use('local', new LocalStrategy({ passReqToCallback: true }, async (req, username, password, done) => {
-    console.log('Attempting local authentication for username:', username);
+  passport.use('local', new LocalStrategy(async(username, password, done) => {
     try {
-      const user = await User.findOne({ username: username }).exec();
+      console.log('Attempting local authentication for username:', username)
+      const user = await User.findOne({username: username }).exec();
       if (!user) {
-        debug('User not found:', username);
-        req.flash('error', 'Invalid user or password');
-        return done(null, false);
+        console.log('User not found:', username);
+        return done(null, false, {message:'Invalid user or password'});
       }
-  
-      const passwordMatch = bcrypt.compare(password, user.password);
+      const passwordMatch = await bcrypt.compare(password, user.password);
   
       if (!passwordMatch) {
-        debug('Incorrect password for user:', username);
-        req.flash('error', 'Invalid user or password');
-        return done(null, false);
+        console.log('Incorrect password for user:', username);
+        return done(null, false,{message:'Invalid user or password'});
       }
   
-      debug('User authenticated successfully:', username);
+      console.log('User authenticated successfully:', username);
       return done(null, user);
     } catch (err) {
       console.error('Error user authentication local strategy', err);
-      req.flash('error', 'An error occurred during authentication');
-      return done(err, null);
+      done(err, null,{error:'Internal server error'});
     }
   }));
   
- 
   passport.use(new GitHubStrategy({
     clientID: process.env.CLIENT_ID_GITHUB,
     clientSecret: process.env.CLIENT_SECRET_GITHUB,
@@ -78,22 +66,19 @@ require('dotenv').config();
    try{
    const user = await GithubUser.findOne({ githubId: profile.id })
    if (user){
-    cb(null,user);
-    return;
+    return cb(null,user);
    }
    else{
    const newUser = new GithubUser({
     githubId : profile.id
    })
    await newUser.save()
-   cb(null,newUser)
-   return;
+   return cb(null,newUser)
   }
 }
   catch(err){
-    debug('Hubo un error al autenticar con gitHub', err)
-    cb(err,null)
-    return;
+    console.log('Hubo un error al autenticar con gitHub', err)
+    return cb(err,null)
   }
   }
 ));
