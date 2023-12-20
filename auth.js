@@ -6,12 +6,10 @@ require('dotenv').config();
 
   function auth(User,GithubUser) {
   passport.serializeUser((user, done) => {
-    console.log('Serialize User:', user._id);
     return done(null, user._id);
   });
 // Deserialización del usuario
   passport.deserializeUser(async(id, done) => {
-    console.log('Deserialize User ID:', id);
     try {
       const user = await User.findById(id).exec();
       if (user) {
@@ -70,7 +68,9 @@ require('dotenv').config();
    }
    else{
    const newUser = new GithubUser({
-    githubId : profile.id
+    githubId : profile.id,
+    username : profile.username,
+    date: new Date()
    })
    await newUser.save()
    return cb(null,newUser)

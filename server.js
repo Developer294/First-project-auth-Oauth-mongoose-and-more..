@@ -34,8 +34,18 @@ app.use(logger('dev'));
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-io.on('connection', () =>{
-  console.log('a user has connected')
+io.on('connection', (socket) =>{
+  console.log('a user has connected');
+  // Manejar eventos específicos para este socket
+  socket.on('chat message', (message) => {
+    console.log(`Message from ${socket.id}: ${message}`);
+    // Emitir el mensaje a todos los clientes conectados
+    io.emit('chat message', message);
+  });
+  // Manejar eventos de desconexión
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+  });
 });
 
 dbConnect();

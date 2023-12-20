@@ -1,5 +1,20 @@
+html{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family:sans-serif;
+  background-image: url('../images/backiee-259270.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 h1{
   color:crimson;
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 label,a,input{
@@ -12,4 +27,44 @@ label,a,input{
 
 a{
   font-size:18px;
+}
+#chat-container {
+  max-width: 600px;
+  margin: 20px auto;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+#chat-messages {
+  padding: 10px;
+  height: 300px;
+  overflow-y: scroll;
+  max-height: 300px;
+}
+
+#user-list {
+  float: right;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-left: 1px solid #ccc;
+}
+
+#input-message{
+  width: calc(100% - 20px);
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+  border-top: 1px solid #ccc;
+  outline: none;
+}
+
+#send-chat-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 0 0 5px 5px;
+  cursor: pointer;
 }

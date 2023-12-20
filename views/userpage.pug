@@ -31,6 +31,11 @@ html(lang="en")
       input(type='password',id='newPasswordChanged')
 
       input(type='submit',value='Confirm')
-    script(src="https://cdn.socket.io/4.7.2/socket.io.min.js", integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz", crossorigin="anonymous")
+    div(id="chat-container")
+      div(id="chat-messages")
+      div(id="user-list")
+      input(type="text",id="input-message",placeholder="Type your message...")
+      button(id="send-chat-button") Send
+    script(src="https://cdn.socket.io/4.7.2/socket.io.min.js")
     script(src='../client/user.js')
     

@@ -1,8 +1,32 @@
 document.addEventListener('DOMContentLoaded', function() {
+const chatBox = document.getElementById('chat-messages');
+const socket = io();
+
+socket.on('chat message', (message) => {
+const chatMessage = document.createElement('p');
+chatMessage.textContent = message;
+
+chatBox.appendChild(chatMessage);
+console.log('Mensaje del servidor:', message);
+});
+// Input and send-button of chat-application
+const inputMessage = document.getElementById('input-message');
+const sendChatButton = document.getElementById('send-chat-button');
+// Handling the "click" event of the Send button
+sendChatButton.addEventListener('click', function() {
+  const message = inputMessage.value.trim();
+  if (message !== '') {
+    // Emit the messsage if the input is not empty
+    socket.emit('chat message', message);
+  // Limpiar el campo de entrada después de enviar el mensaje
+    inputMessage.value = '';
+  }
+});
+// Delete account and change password management
 const changePasswordButton = document.getElementById('change-password');
 const changePasswordForm = document.getElementById('change-password-form');
 const deleteFormAccount = document.getElementById('form-delete-account');
-const backButton = document.getElementById('back-user')
+const backButton = document.getElementById('back-user');
 
 changePasswordButton.addEventListener('click', function(event) {
   event.preventDefault();
@@ -18,7 +42,7 @@ backButton.addEventListener('click', (event) =>{
   deleteFormAccount.style.display = 'block';
   backButton.style.display = 'none';
   changePasswordButton.style.display = 'block';
-})
+});
 
 changePasswordForm.addEventListener('submit', async function(event) {
   event.preventDefault();
@@ -41,18 +65,18 @@ changePasswordForm.addEventListener('submit', async function(event) {
 
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
-    }
+    };
     const data = await response.json();
     
     const clientResponse = document.createElement('p');
     clientResponse.textContent = data.message
 
-    changePasswordForm.innerHTML = ''
-    changePassword.appendChild(clientResponse)
+    changePasswordForm.innerHTML = '';
+    changePassword.appendChild(clientResponse);
 
   } catch (error) {
     console.error('Error on the fetch', error);
-  }
+  };
 });
 
 deleteFormAccount.addEventListener('submit', async(event) => {
@@ -96,4 +120,4 @@ deleteFormAccount.addEventListener('submit', async(event) => {
     }
   }
 });
-});
+})
