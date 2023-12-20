@@ -13,16 +13,14 @@ require('dotenv').config();
     try {
       const user = await User.findById(id).exec();
       if (user) {
-        console.log('Deserializacion exitosa');
         return done(null, user);
       } else {
         const Github = await GithubUser.findById(id).exec()
         if(Github){
-         console.log('Deserializacion usuario github exitosa');
          return done(null,Github)
         }
         else{
-        console.log('Usuario no encontrado en la deserialización');
+        console.log('GitHub deserialization : User not found');
         return done(new Error('Usuario no encontrado'),null);
         }
       }
@@ -38,19 +36,19 @@ require('dotenv').config();
       const user = await User.findOne({username: username }).exec();
       if (!user) {
         console.log('User not found:', username);
-        return done(null, false, {message:'Invalid user or password'});
+        return done(null, false, {message:'Invalid credentials'});
       }
       const passwordMatch = await bcrypt.compare(password, user.password);
   
       if (!passwordMatch) {
         console.log('Incorrect password for user:', username);
-        return done(null, false,{message:'Invalid user or password'});
+        return done(null, false,{message:'Invalid credentials'});
       }
   
       console.log('User authenticated successfully:', username);
       return done(null, user);
     } catch (err) {
-      console.error('Error user authentication local strategy', err);
+      console.error('An error was occurred with the local-strategy', err);
       done(err, null,{error:'Internal server error'});
     }
   }));
@@ -77,7 +75,7 @@ require('dotenv').config();
   }
 }
   catch(err){
-    console.log('Hubo un error al autenticar con gitHub', err)
+    console.log('An error was occurred with github auth', err)
     return cb(err,null)
   }
   }

@@ -6,12 +6,13 @@ const router = require('express').Router();
 router.post('/login', passport.authenticate('local', {
   failureRedirect: '/',
 }), (req, res) => {
-  res.status(200).redirect('/login/userpage');
+  res.status(200).redirect('/login/userpage?username=' + req.user.username);
 });
 
 router.get('/login/userpage', (req, res) => {
+  const username = req.query.username;
   if (req.isAuthenticated()) {
-    return res.status(200).render('userpage.pug');
+    return res.status(200).render('userpage.pug',{username:username});
   } else {
     return res.status(404).json({ not_found: 'You have to be authenticated' });
   }
@@ -22,7 +23,7 @@ router.get('/auth/github', passport.authenticate('github'));
 router.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   (req, res) => {
-    return res.status(200).redirect('/login/userpage');
+    return res.status(200).redirect('/login/userpage?username=' + req.user.username);
   });
 
 //Update password

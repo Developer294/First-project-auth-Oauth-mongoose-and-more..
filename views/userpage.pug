@@ -6,7 +6,8 @@ html(lang="en")
     link(rel='stylesheet', href='../styles/userstyle.css')
     title Documento
   body
-    h1 Welcome User
+    h1 Welcome
+      span(id='username-span')  #{username}
     form(id="form-delete-account")
       label(for='usernameToDelete') Username: 
       input(type="text",id="usernameToDelete",required)

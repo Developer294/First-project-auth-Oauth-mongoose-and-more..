@@ -24,6 +24,8 @@ const userSchema = new mongoose.Schema({
 
 const githubUserSchema = new mongoose.Schema({
   githubId: { type: String, required: true , unique:true},
+  username: {type:String, required:true, unique:true},
+  date : {type: Date}
   // Otros campos para la autenticación de GitHub
 });
 

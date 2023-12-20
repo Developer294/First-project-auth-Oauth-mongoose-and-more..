@@ -28,6 +28,7 @@ label,a,input{
 a{
   font-size:18px;
 }
+
 #chat-container {
   max-width: 600px;
   margin: 20px auto;

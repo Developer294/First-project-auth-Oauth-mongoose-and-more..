@@ -1,10 +1,17 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function(){
 const chatBox = document.getElementById('chat-messages');
+const chatUser = document.getElementById('username-span').innerText
 const socket = io();
+
+const newChatUser = document.createElement('p');
+newChatUser.textContent = `${chatUser} se ha unido al chat...`;
+setTimeout(() => {
+  chatBox.appendChild(newChatUser);
+}, 500);
 
 socket.on('chat message', (message) => {
 const chatMessage = document.createElement('p');
-chatMessage.textContent = message;
+chatMessage.textContent = `${chatUser}: ${message}`
 
 chatBox.appendChild(chatMessage);
 console.log('Mensaje del servidor:', message);
