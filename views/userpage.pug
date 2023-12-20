@@ -3,9 +3,10 @@ html(lang="en")
   head
     meta(charset="UTF-8")
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    link(rel='stylesheet', href='../styles/userstyle.css')
     title Documento
   body
-    h1 Welcome
+    h1 Welcome User
     form(id="form-delete-account")
       label(for='usernameToDelete') Username: 
       input(type="text",id="usernameToDelete",required)
@@ -17,6 +18,7 @@ html(lang="en")
    
     a(href='/login/userpage/logout') Cerrar Sesion  
     a(href='#', id='change-password') Cambiar contraseña
+    a(href='#', id='back-user', style='display:none') Back
     
     form(id='change-password-form', style="display:none;")
       label(for='emailToChangePw') Email
@@ -29,5 +31,6 @@ html(lang="en")
       input(type='password',id='newPasswordChanged')
 
       input(type='submit',value='Confirm')
+    script(src="https://cdn.socket.io/4.7.2/socket.io.min.js", integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz", crossorigin="anonymous")
     script(src='../client/user.js')
     

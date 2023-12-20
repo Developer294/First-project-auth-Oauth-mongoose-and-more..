@@ -1,0 +1,15 @@
+h1{
+  color:crimson;
+}
+
+label,a,input{
+  display: block;
+}
+
+label,a,input{
+  margin-top:10px;
+}
+
+a{
+  font-size:18px;
+}

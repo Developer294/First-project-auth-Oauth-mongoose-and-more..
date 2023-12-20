@@ -1,12 +1,24 @@
 document.addEventListener('DOMContentLoaded', function() {
-const changePassword = document.getElementById('change-password');
+const changePasswordButton = document.getElementById('change-password');
 const changePasswordForm = document.getElementById('change-password-form');
 const deleteFormAccount = document.getElementById('form-delete-account');
+const backButton = document.getElementById('back-user')
 
-changePassword.addEventListener('click', function(event) {
+changePasswordButton.addEventListener('click', function(event) {
   event.preventDefault();
   changePasswordForm.style.display = 'block';
+  deleteFormAccount.style.display = 'none';
+  backButton.style.display = 'block';
+  changePasswordButton.style.display = 'none';
 });
+
+backButton.addEventListener('click', (event) =>{
+  event.preventDefault();
+  changePasswordForm.style.display ='none';
+  deleteFormAccount.style.display = 'block';
+  backButton.style.display = 'none';
+  changePasswordButton.style.display = 'block';
+})
 
 changePasswordForm.addEventListener('submit', async function(event) {
   event.preventDefault();

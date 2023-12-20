@@ -11,7 +11,7 @@ router.post('/login', passport.authenticate('local', {
 
 router.get('/login/userpage', (req, res) => {
   if (req.isAuthenticated()) {
-    return res.status(200).render('userpage');
+    return res.status(200).render('userpage.pug');
   } else {
     return res.status(404).json({ not_found: 'You have to be authenticated' });
   }
@@ -22,7 +22,7 @@ router.get('/auth/github', passport.authenticate('github'));
 router.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/' }),
   (req, res) => {
-    return res.status(200).render('userpage');
+    return res.status(200).redirect('/login/userpage');
   });
 
 //Update password
