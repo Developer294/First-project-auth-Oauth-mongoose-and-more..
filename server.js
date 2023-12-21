@@ -10,7 +10,7 @@ const {createServer} = require('node:http');
 const server = createServer(app);
 const io = new Server(server);
 const dbConnect = require('./dbconnect.js');
-const {User,GithubUser} = require('./schema.js');
+const {User,GithubUser,GoogleUser} = require('./schema.js');
 const auth = require('./auth.js');
 const passport = require('passport');
 const bodyParser = require('body-parser');
@@ -50,7 +50,7 @@ io.on('connection', (socket) =>{
 
 dbConnect();
 app.use('/',router);
-auth(User,GithubUser);
+auth(User,GithubUser,GoogleUser);
 
 app.use((err, req, res, next)=> {
   console.error(err.stack);

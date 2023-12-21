@@ -26,6 +26,15 @@ router.get('/auth/github/callback',
     return res.status(200).redirect('/login/userpage?username=' + req.user.username);
   });
 
+router.get('/auth/google', passport.authenticate('google', { scope: ['profile'] }));
+
+router.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) =>{
+    // Successful authentication, redirect home.
+    res.status(200).redirect('/login/userpage?username=' + req.user.username)
+  });
+
 //Update password
 router.put('/login/userpage/updatepw', async (req, res) => {
   try {

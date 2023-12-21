@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
 require('dotenv').config();
 
 mongoose.connect(process.env.MONGO_URI);
@@ -25,30 +24,22 @@ const userSchema = new mongoose.Schema({
 const githubUserSchema = new mongoose.Schema({
   githubId: { type: String, required: true , unique:true},
   username: {type:String, required:true, unique:true},
-  date : {type: Date}
+  date : {type: Date, default: new Date()}
   // Otros campos para la autenticación de GitHub
 });
 
+const googleUserSchema = new mongoose.Schema({
+  googleId:{type:String,unique:true,required:true},
+  username:{type:String,unique:true,required:true},
+  date:{type:Date, default:new Date()}
+})
+
+const GoogleUser = mongoose.model('GoogleUser', googleUserSchema)
 const GithubUser = mongoose.model('GithubUser', githubUserSchema);
-
-// Use a regular function, not an arrow function, for avoid the "this" bug.
-/*
-userSchema.pre('save', function(next) {
-  console.log('Middleware pre-save triggered');
-  console.log('Original password:', this.password);
-
-  if (!this.isModified('password')) return next();
-
-  const saltRounds = 10;
-  this.password = bcrypt.hashSync(this.password, saltRounds);
-
-  console.log('Hashed password:', this.password);
-  next();
-});
-*/
 const User = mongoose.model('User', userSchema);
 
 module.exports ={
   User,
   GithubUser,
+  GoogleUser
 }
