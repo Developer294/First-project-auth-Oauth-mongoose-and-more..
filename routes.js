@@ -1,13 +1,10 @@
 const passport = require('passport');
-const { User } = require('./schema');
+const { User } = require('./models/usermodels.js');
 const bcrypt = require('bcrypt');
 const router = require('express').Router();
+const authControllers = require('./controllers/authControllers.js')
 
-router.post('/login', passport.authenticate('local', {
-  failureRedirect: '/',
-}), (req, res) => {
-  res.status(200).redirect('/login/userpage?username=' + req.user.username);
-});
+router.post('/login', authControllers.loginUser)
 
 router.get('/login/userpage', (req, res) => {
   const username = req.query.username;
