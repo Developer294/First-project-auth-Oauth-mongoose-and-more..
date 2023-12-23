@@ -23,3 +23,4 @@ transporter.sendMail(mailOptions, (error, info) => {
     console.log('Correo enviado: ' + info.response);
   }
 });
+

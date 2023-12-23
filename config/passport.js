@@ -4,8 +4,8 @@ const GitHubStrategy = require('passport-github').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const bcrypt = require('bcrypt');
 require('dotenv').config();
-
-  function auth(User,GithubUser,GoogleUser) {
+  
+function auth(User,GithubUser,GoogleUser) {
   passport.serializeUser((user, done) => {
     return done(null, user._id);
   });

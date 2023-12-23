@@ -8,7 +8,7 @@ body {
   font-family:sans-serif;
   background-image: url('../images/backiee-259270.jpg');
   background-size: cover;
-  background-position: center;
+  background-position:'center';
   background-repeat: no-repeat;
 }
 

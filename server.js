@@ -14,7 +14,8 @@ const {User,GithubUser,GoogleUser} = require('./models/usermodels.js');
 const auth = require('./config/passport.js');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const {router} = require('./routes.js');
+const userRoutes = require('./routes/userRoutes.js');
+const authRoutes = require('./routes/authRoutes.js')
 const port = process.env.PORT;
 
 app.use(session({
@@ -49,7 +50,9 @@ io.on('connection', (socket) =>{
 });
 
 dbConnect();
-app.use('/',router);
+
+app.use('/',authRoutes)
+app.use('/',userRoutes);
 auth(User,GithubUser,GoogleUser);
 
 app.use((err, req, res, next)=> {
