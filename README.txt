@@ -1,7 +1,1 @@
-Comparacion controladores
-
-router.post('/login', passport.authenticate('local', {
-  failureRedirect: '/',
-}), (req, res) => {
-  res.status(200).redirect('/login/userpage?username=' + req.user.username); 
-});
+Welcome to my first "serious" project with node js. I am Juan del Estal from Buenos Aires argentina, i've been programming since march 2023, and i found my passion in this amazing field.
