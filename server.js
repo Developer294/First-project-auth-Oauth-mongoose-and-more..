@@ -6,16 +6,17 @@ const path = require('path');
 const session = require('express-session');
 const logger = require('morgan');
 const dbConnect = require('./config/database.js');
-const {User,GithubUser,GoogleUser} = require('./models/usermodels.js');
-const auth = require('./config/passport.js');
 const {Server} = require('socket.io');
 const {createServer} = require('node:http');
 const server = createServer(app);
 const io = new Server(server);
 const passport = require('passport');
+const localStrategy = require('./auth/localStrategy.js');
+const googleStrategy = require('./auth/googleStrategy.js');
+const gitHubStrategy = require('./auth/githubStrategy.js');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes.js');
-const authRoutes = require('./routes/authRoutes.js')
+const authRoutes = require('./routes/authRoutes.js');
 const port = process.env.PORT;
 
 //Express-session
@@ -62,13 +63,15 @@ app.set('views', path.join(__dirname, 'views'));
 // Db connect
 dbConnect();
 
+//Auth Strategies 
+localStrategy()
+googleStrategy()
+gitHubStrategy()
+
 // Routes
 app.use('/',userRoutes);
 app.use('/',authRoutes)
 
-
-// Auth Strategies
-auth(User,GithubUser,GoogleUser)
 
 // Err Handler
 app.use((err, req, res, next)=> {
