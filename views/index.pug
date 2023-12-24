@@ -7,7 +7,7 @@ html(lang="en")
     title Welcome Page
   body
     h1 Welcome User
-    form#login-form(action="/login", method="post")
+    form(action="/login", method="post", id='login-form')
       label(for="username") Username:
       input(type="text", id="username", name="username", required)
       
@@ -16,7 +16,7 @@ html(lang="en")
 
       input(type="submit", value="Login")
 
-    form#signup-form(action="/signup", method="post", style="display:none;")
+    form(action="/signup", id='signup-form' method="post", style="display:none;")
       label(for="newUsername") New Username:
       input(type="text", id="newUsername", name="username", required)
 
@@ -35,7 +35,7 @@ html(lang="en")
     a(href='/auth/github') Login with GitHub
     br
     a(href='/auth/google') Login with Google
-    button#back-button(style='display:none') Back
+    button(style='display:none', id='back-button') Back
     script(src='../client/start.js')
 
      

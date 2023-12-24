@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const {User} = require('../models/usermodels')
 
 const homePage = (req, res) => {
-  res.render('index.pug');
+  res.status(200).render('index.pug');
 };
 
 const userpage = (req, res) => {

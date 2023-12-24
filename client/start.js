@@ -1,9 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
   // Obtener referencias a los elementos del DOM
-  var loginForm = document.getElementById('login-form');
-  var signupForm = document.getElementById('signup-form');
-  var signupLink = document.getElementById('signup-link');
-  var backButton = document.getElementById('back-button');
+  let loginForm = document.getElementById('login-form');
+  let signupForm = document.getElementById('signup-form');
+  let signupLink = document.getElementById('signup-link');
+  let backButton = document.getElementById('back-button');
   
   // Agregar un evento de clic al enlace "Don't have an account?"
   signupLink.addEventListener('click', function(event) {
@@ -21,6 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     loginForm.style.display = 'block';
     signupForm.style.display = 'none';
-    backButton.style.display = 'none'
+    backButton.style.display = 'none';
   })
 });
