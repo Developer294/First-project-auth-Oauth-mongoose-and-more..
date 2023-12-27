@@ -1,6 +1,5 @@
 const passport = require('passport');
 
-
 //Local Auth controller
 const loginUser = (req, res) => {
   passport.authenticate('local', { failureRedirect: '/'})
