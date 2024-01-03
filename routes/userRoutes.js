@@ -4,6 +4,12 @@ const router = require('express').Router()
 //Home page
 router.get('/', userControllers.homePage);
 
+router.post('/retrievepw', userControllers.retrieveLocalPw )
+
+router.get('/retrievepw/confirm', userControllers.retrievePwConfirm)
+
+router.put('/retrievepw/confirm/send', userControllers.retrieveAndUpdatePw)
+
 // User home page
 router.get('/login/userpage', userControllers.userpage);
 

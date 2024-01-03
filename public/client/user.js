@@ -79,7 +79,7 @@ changePasswordForm.addEventListener('submit', async function(event) {
     clientResponse.textContent = data.message
 
     changePasswordForm.innerHTML = '';
-    changePassword.appendChild(clientResponse);
+    changePasswordForm.appendChild(clientResponse);
 
   } catch (error) {
     console.error('Error on the fetch', error);

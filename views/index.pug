@@ -32,6 +32,13 @@ html(lang="en")
     br
     a(href='#', id='signup-link') Don't have an account? Create one!
     br
+    a(href='#', id='retrieve-pw') Forgot your password ? retrieve it here !
+    br 
+    form(action ='/retrievepw', id ='retrieve-pw-form', method='POST', style="display:none;")
+      label(for='input-retrieve-pw') Email :
+      input(type='email', id='input-retrieve-pw', name='email')
+      input(type='submit', value='Send')
+    br
     a(href='/auth/github') Login with GitHub
     br
     a(href='/auth/google') Login with Google

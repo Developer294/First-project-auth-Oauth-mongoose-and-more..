@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
-const {User} = require('../models/usermodels')
+const {User} = require('../models/usermodels');
+const { Resend } = require('resend');
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const homePage = (req, res) => {
   res.render('index.pug');
@@ -13,6 +15,67 @@ const userpage = (req, res) => {
     return res.status(404).json({ not_found: 'You have to be authenticated' });
   }
 }
+/*
+
+*/
+
+const retrieveLocalPw = async (req,res) => {
+  try{
+  const userEmail = await User.findOne({email: req.body.email}).exec()
+
+  if(!userEmail){
+    res.status(401).json({message: 'Invalid credentials'})
+  }
+  const { data, error } = await resend.emails.send({
+    from: "Acme <onboarding@resend.dev>",
+    to: [userEmail.email],
+    subject: "Retrieve your password",
+    html: `<strong>For retrieve your password click on the link below</strong><a href="http://localhost:3000/retrievepw/confirm?email=${userEmail.email}>Click here</a>`
+  });
+
+  if (error) {
+    return res.status(400).json({ error });
+  }
+
+  res.status(200).json({ data });
+}
+catch(err){
+  console.error('Error retrieving user local password',err)
+}
+};
+
+const retrievePwConfirm = (req,res) => {
+  res.status(200).render('retrievepw.pug',{email : req.query.email});
+}
+
+const retrieveAndUpdatePw = async(req,res) => {
+  try {
+  if (req.body.newPassword !== req.body.confirmNewPassword){
+    return res.status(401).json({message : 'Inputs are not equal'});
+  } 
+  
+  const user = await User.findOne({ email: req.body.email}).exec();
+  
+  if(!user){
+    return res.status(401).json({message:'Invalid credentials'})
+  }
+  
+  // Hash pw
+  const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+  // Update userPw
+  const updateUser = await User.findOneAndUpdate({email:req.body.email},{$set:{ password: hashedPassword }},{new: true}).exec()
+
+  if(!updateUser){
+    throw new Error('Error mongo update query ')
+  }
+   
+  res.status(200).json({message: 'Password updated succesfully'})
+}
+catch(err){
+  console.error('Error on user controller named : update password local', err)
+}
+};
+
 const updateLocalPw = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).exec();
@@ -98,6 +161,9 @@ module.exports ={
   updateLocalPw,
   deleteLocalPw,
   signUpLocal,
+  retrieveLocalPw,
+  retrievePwConfirm,
+  retrieveAndUpdatePw,
   userLogOut,
   homePage
 }

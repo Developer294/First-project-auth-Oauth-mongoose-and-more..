@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    script(src='../client/retrievelocalpw.js', defer)
+    title Retrieve your password
+  body 
+    h2 Retrieve your password
+    p(id='user-email-to-change-pw') #{email}
+    form(id ='confirm-password-retrieved', method ='POST')
+      label(for='newPwRetrieved') New password :
+      input(type='password',id='newPwRetrieved')
+      label(for='confirmNewPwRetrieved') Confirm password :
+      input(type='password',id='confirmNewPwRetrieved')
+      input(type='submit', value='Confirm')

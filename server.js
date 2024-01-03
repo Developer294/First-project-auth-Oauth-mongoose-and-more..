@@ -9,6 +9,7 @@ const dbConnect = require('./config/database.js');
 const {Server} = require('socket.io');
 const {createServer} = require('node:http');
 const server = createServer(app);
+const helmet = require('helmet');
 const io = new Server(server);
 const passport = require('passport');
 const localStrategy = require('./auth/localStrategy.js');
@@ -18,6 +19,29 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes.js');
 const authRoutes = require('./routes/authRoutes.js');
 const port = process.env.PORT;
+
+// X-XSS protection
+app.use((req, res, next) => {
+  res.header('X-XSS-Protection', '1; mode=block');
+  next();
+});
+
+// Helmet Security
+app.disable('x-powered-by')
+app.use(
+  helmet({
+    xPoweredBy : false,
+    xFrameOptions: { action: "deny" },
+    contentSecurityPolicy: {
+      directives: {
+        "script-src": ["'self'", "https://cdn.socket.io"],
+      },
+    },
+    nosniff: true, // Config "nosniff"
+    strictTransportSecurity: false, // HSTS disabled only for work with localhost
+    xDnsPrefetchControl: { allow: false } // Disabled DNS prefetching
+  })
+);
 
 //Express-session
 app.use(session({
@@ -76,16 +100,16 @@ app.use('/',authRoutes)
 // Err Handler
 app.use((err, req, res, next)=> {
   console.error(err.stack);
-  res.status(500).send('¡Algo salió mal!');
+  res.status(500).send('Something went wrong!');
 });
 
 // Not found handler
 app.use((req, res, next) => {
-  res.status(404).send('Página no encontrada');
+  res.status(404).send('Page not found');
 });
 
 // Listener
 server.listen(port ,(req,res)=> {
-  console.log(`El servidor está escuchando en el puerto ${port}...`)
+  console.log(`Server is listening on port : ${port}...`)
 });
 
