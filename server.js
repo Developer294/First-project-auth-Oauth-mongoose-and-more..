@@ -23,7 +23,7 @@ const port = process.env.PORT;
 // X-XSS protection
 app.use((req, res, next) => {
   res.header('X-XSS-Protection', '1; mode=block');
-  next();
+  next();//cha
 });
 
 // Helmet Security
