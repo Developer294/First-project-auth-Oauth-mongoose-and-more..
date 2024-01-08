@@ -20,13 +20,13 @@ const userRoutes = require('./routes/userRoutes.js');
 const authRoutes = require('./routes/authRoutes.js');
 const port = process.env.PORT;
 
-// X-XSS protection
+// X-XSS Protection
 app.use((req, res, next) => {
   res.header('X-XSS-Protection', '1; mode=block');
   next();
 });
 
-// Helmet Security
+// Helmet Security 
 app.disable('x-powered-by')
 app.use(
   helmet({
@@ -42,6 +42,7 @@ app.use(
     xDnsPrefetchControl: { allow: false } // Disabled DNS prefetching
   })
 );
+
 
 //Express-session
 app.use(session({
