@@ -13,20 +13,40 @@ body {
 }
 
 h1{
-  color:crimson;
-  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #ff1158; /* Color entre rosado y rojo (similar al color chicle) */
+  text-shadow: 0.5px 0.5px 1px rgb(245, 105, 105); /* Sombreado blanco brillante */
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+label{
+  color: rgba(43, 172, 215, 0.76);
 }
 
 label,a,input{
   display: block;
-}
-
-label,a,input{
   margin-top:10px;
 }
 
 a{
   font-size:18px;
+}
+
+p{
+  color:rgb(36, 150, 250);
+  font-size: 17px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#usernameToDelete, #passwordToDelete, #input-message{
+  border:none;
+  color:aliceblue;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  background-color:rgba(24, 114, 231, 0.35);
+}
+
+#form-delete-account{
+  width:300px;
+  height: 300px;
 }
 
 #chat-container {
