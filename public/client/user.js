@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function(){
-<<<<<<< HEAD
 const chatBox = document.getElementById('chat-messages');
 const chatUser = document.getElementById('username-span').innerText
 const socket = io();
@@ -94,7 +93,6 @@ deleteFormAccount.addEventListener('submit', async(event) => {
   // Checking on the client side
   const confirmed = confirm('¿Are you sure to eliminate your account?');
   if (confirmed) {
-=======
   const chatBox = document.getElementById('chat-messages');
   const chatUser = document.getElementById('username-span').innerText
   const socket = io();
@@ -153,7 +151,6 @@ deleteFormAccount.addEventListener('submit', async(event) => {
     const passwordToChange = document.getElementById('passwordToChange').value;
     const newPasswordChanged = document.getElementById('newPasswordChanged').value;
   
->>>>>>> rama1
     try {
       const response = await fetch('/login/userpage/updatepw', {
         method: 'PUT',
