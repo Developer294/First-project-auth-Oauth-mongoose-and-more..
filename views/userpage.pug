@@ -2,41 +2,46 @@ doctype html
 html(lang="en")
   head
     meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width, initial-scale=1.0")
-    link(rel='stylesheet', href='../styles/userstyle.css')
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css", rel="stylesheet", integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN", crossorigin="anonymous")
+    link(rel='stylesheet' href='../styles/userstyle.css')
     title Documento
   body
     h1 Welcome
       span(id='username-span')  #{username}
-    form(id="form-delete-account")
-      label(for='usernameToDelete') Username: 
-      input(type='text',id='usernameToDelete',required)
-      
-      label(for='passwordToDelete') Password:
-      input(type='password',id='passwordToDelete',required)
-      
-      input(type='submit', value='Eliminar Usuario')
-   
-    a(href='/login/userpage/logout') Cerrar Sesion  
-    a(href='#', id='change-password') Cambiar contraseña
-    a(href='#', id='back-user', style='display:none') Back
-    
-    form(id='change-password-form', style="display:none;")
-      label(for='emailToChangePw') Email
-      input(type='email', id="emailToChangePw")
-      
-      label(for="passwordToChange") Old password
-      input(type='password',id='passwordToChange')
-      
-      label(for='newPasswordChanged') New password
-      input(type='password',id='newPasswordChanged')
 
-      input(type='submit',value='Confirm')
+    form(id="form-delete-account")
+      div(class="mb-3")
+        label(for="usernameToDelete", class="form-label") Username
+        input(type="text", class="form-control", id="usernameToDelete", aria-describedby="emailHelp")
+        div(id="emailHelp", class="form-text") We'll never share your email with anyone else.
+
+      div(class="mb-3")
+        label(for="passwordToDelete", class="form-label") Password
+        input(type="password", class="form-control", id="passwordToDelete", required)
+
+      div(class="mb-3 form-check")
+        button(type="submit", class="btn btn-primary") Submit
+
+    a(href='/login/userpage/logout') Cerrar Sesion  
+    a(href='#' id='change-password') Cambiar contraseña
+    a(href='#' id='back-user' style='display:none') Back
+
+    form(id='change-password-form' style="display:none;")
+      label(for='emailToChangePw') Email
+      input(type='email' id="emailToChangePw")
+
+      label(for="passwordToChange") Old password
+      input(type='password' id='passwordToChange')
+
+      label(for='newPasswordChanged') New password
+      input(type='password' id='newPasswordChanged')
+
+      input(type='submit' value='Confirm')
     div(id="chat-container")
       div(id="chat-messages")
       div(id="user-list")
-      input(type="text",id="input-message",placeholder="Type your message...")
+      input(type="text" id="input-message" placeholder="Type your message...")
       button(id="send-chat-button") Send
     script(src="https://cdn.socket.io/4.7.2/socket.io.min.js")
     script(src='../client/user.js')
-    

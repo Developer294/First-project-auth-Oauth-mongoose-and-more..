@@ -6,8 +6,8 @@ const path = require('path');
 const session = require('express-session');
 const logger = require('morgan');
 const dbConnect = require('./config/database.js');
-const {Server} = require('socket.io');
-const {createServer} = require('node:http');
+const { Server } = require('socket.io');
+const { createServer } = require('node:http');
 const server = createServer(app);
 const helmet = require('helmet');
 const io = new Server(server);
@@ -30,7 +30,7 @@ app.use((req, res, next) => {
 app.disable('x-powered-by')
 app.use(
   helmet({
-    xPoweredBy : false,
+    xPoweredBy: false,
     xFrameOptions: { action: "deny" },
     contentSecurityPolicy: {
       directives: {
@@ -57,7 +57,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Socket config 
-io.on('connection', (socket) =>{
+io.on('connection', (socket) => {
   console.log('a user has connected');
   // Manejar eventos específicos para este socket
   socket.on('chat message', (message) => {
@@ -94,12 +94,12 @@ googleStrategy()
 gitHubStrategy()
 
 // Routes
-app.use('/',userRoutes);
-app.use('/',authRoutes)
+app.use('/', userRoutes);
+app.use('/', authRoutes)
 
 
 // Err Handler
-app.use((err, req, res, next)=> {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
 });
@@ -110,7 +110,7 @@ app.use((req, res, next) => {
 });
 
 // Listener
-server.listen(port ,(req,res)=> {
+server.listen(port, (req, res) => {
   console.log(`Server is listening on port : ${port}...`)
 });
 
