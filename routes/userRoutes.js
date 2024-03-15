@@ -13,7 +13,7 @@ router.put('/retrievepw/confirm/send', userControllers.retrieveAndUpdatePw)
 // User home page.
 router.get('/login/userpage', userControllers.userpage);
 
-//Update local password
+//Update local password.
 router.put('/login/userpage/updatepw', userControllers.updateLocalPw);
 
 // Delete local users
