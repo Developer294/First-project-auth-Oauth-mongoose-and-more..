@@ -1,7 +1,7 @@
 const userControllers = require('../controllers/userControllers');
 const router = require('express').Router()
 
-//Home page
+//Home page.
 router.get('/', userControllers.homePage);
 
 router.post('/retrievepw', userControllers.retrieveLocalPw )
@@ -10,10 +10,10 @@ router.get('/retrievepw/confirm', userControllers.retrievePwConfirm)
 
 router.put('/retrievepw/confirm/send', userControllers.retrieveAndUpdatePw)
 
-// User home page
+// User home page.
 router.get('/login/userpage', userControllers.userpage);
 
-//Update local password
+//Update local password.
 router.put('/login/userpage/updatepw', userControllers.updateLocalPw);
 
 // Delete local users
