@@ -1,7 +1,7 @@
 const userControllers = require('../controllers/userControllers');
 const router = require('express').Router()
 
-//Home page
+//Home page.
 router.get('/', userControllers.homePage);
 
 router.post('/retrievepw', userControllers.retrieveLocalPw )
