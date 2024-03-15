@@ -21,7 +21,7 @@ const authRoutes = require('./routes/authRoutes.js');
 const port = process.env.PORT;
 
 // X-XSS Protection
-app.use((req, res, next) => {
+app.use((_req, res, next) => {
   res.header('X-XSS-Protection', '1; mode=block');
   next();
 });
@@ -78,7 +78,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Morgan Logger
+// Mo;rgan Logger
 app.use(logger('dev'));
 
 //Pug config
@@ -99,13 +99,13 @@ app.use('/', authRoutes)
 
 
 // Err Handler
-app.use((err, req, res, next) => {
+app.use((err, _req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Something went wrong!');
 });
 
 // Not found handler
-app.use((req, res, next) => {
+app.use((_req, res, _next) => {
   res.status(404).send('Page not found');
 });
 

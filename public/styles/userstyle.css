@@ -12,10 +12,17 @@ body {
   background-repeat: no-repeat;
 }
 
-h1{
+#user-title.visible {
+  opacity: 1;
+}
+
+
+#user-title{
   color: #ff1158; /* Color entre rosado y rojo (similar al color chicle) */
   text-shadow: 0.5px 0.5px 1px rgb(245, 105, 105); /* Sombreado blanco brillante */
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
 }
 
 label{

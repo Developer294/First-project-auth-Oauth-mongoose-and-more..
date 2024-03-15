@@ -3,11 +3,15 @@ const chatBox = document.getElementById('chat-messages');
 const chatUser = document.getElementById('username-span').innerText
 const socket = io();
 
+setTimeout(() => {
+  document.getElementById('user-title').classList.add('visible');
+}, 100);
+
 const newChatUser = document.createElement('p');
 newChatUser.textContent = `${chatUser} se ha unido al chat...`;
 setTimeout(() => {
   chatBox.appendChild(newChatUser);
-}, 500);
+}, 100);
 
 socket.on('chat message', (message) => {
 const chatMessage = document.createElement('p');
