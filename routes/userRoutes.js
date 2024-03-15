@@ -10,7 +10,7 @@ router.get('/retrievepw/confirm', userControllers.retrievePwConfirm)
 
 router.put('/retrievepw/confirm/send', userControllers.retrieveAndUpdatePw)
 
-// User home page
+// User home page.
 router.get('/login/userpage', userControllers.userpage);
 
 //Update local password
